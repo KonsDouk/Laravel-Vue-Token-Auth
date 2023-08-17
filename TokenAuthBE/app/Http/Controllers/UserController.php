@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -16,16 +18,14 @@ class UserController extends Controller
             'email'=> ['required', 'email'],
             'password'=> ['required']
         ]);
-        return $credentials;
-
-        // return ['sdfsdfdsf', validator(request()->all(), [
-        //     'email'=> ['required', 'email'],
-        //     'password'=> ['password'],
-        // ])->validate()];
-
-        // // if ($credentials){
-
-        // // }
+        
+        
+        if (Auth::attempt($credentials)){
+            $token = $request->user()->createToken(time());
+            return [
+                'token'=> $token->plainTextToken
+            ];
+        }
     }
     
 }
