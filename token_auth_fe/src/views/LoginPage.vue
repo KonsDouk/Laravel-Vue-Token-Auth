@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
     data(){
         return {
@@ -38,16 +38,9 @@ export default {
                 this.token = response.data.token
                 this.$store.commit('setToken', this.token)
             })
-
-            
-
-            // await axios.get('/api/users')
-            // .then((response) => {
-            //     console.log('response', response)
-            // })
         },
+
         async logout(){
-            
             const headers = {'Authorization': `Bearer ${this.$store.getters.getToken}`}
             const data = {name: "test"}
             await axios.post('/api/logout', null, {headers} )
