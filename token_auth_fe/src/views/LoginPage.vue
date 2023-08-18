@@ -24,6 +24,7 @@ export default {
     },
     mounted(){
         console.log('this.$store.getters.getToken', this.$store.getters.getToken)
+        console.log('localstorage', localStorage)
     },
     methods: {
         async login(){
@@ -37,6 +38,8 @@ export default {
                 console.log('response', response)
                 this.token = response.data.token
                 this.$store.commit('setToken', this.token)
+                localStorage.setItem('authToken', this.token)
+                console.log('local', localStorage)
             })
         },
 
